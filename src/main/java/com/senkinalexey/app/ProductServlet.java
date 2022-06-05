@@ -18,10 +18,10 @@ import java.util.List;
 @WebServlet(name = "Products", urlPatterns = "/show_products")
 public class ProductServlet extends HttpServlet {
 
-    private static Logger logger = LoggerFactory.getLogger(ProductServlet.class);
+    private final Logger logger = LoggerFactory.getLogger(ProductServlet.class);
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.debug("Log: Product");
 
         resp.setContentType("text/html");
@@ -38,11 +38,12 @@ public class ProductServlet extends HttpServlet {
         products.add(new Product(8, "Tomato", 15));
         products.add(new Product(9, "Lemon", 15));
         products.add(new Product(10, "Ketchup", 20));
+        products.add(new Product(11, "Pizza", 120));
 
         PrintWriter out = resp.getWriter();
         out.printf("<html><body>");
-        for (int i = 0; i < products.size(); i++) {
-            out.printf("<h1> " + products.get(i).toString() + " </h1>");
+        for (Product product : products) {
+            out.printf("<h1> " + product.toString() + "</h1>");
         }
         out.printf("</body></html>");
         out.close();
